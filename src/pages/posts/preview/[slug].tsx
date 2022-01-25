@@ -24,10 +24,11 @@ export default function PostPreview({ post }: PostPreviewProps) {
     const router = useRouter()
 
     useEffect(() => {
-        if (session.activeSubscription) {
+        if (session?.activeSubscription) {
             router.push(`/posts/${post.slug}`)
         }
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [session])
 
     return (
@@ -83,5 +84,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             }
         ),
     };
-    return { props: { post } }
+    return {
+        props: {
+            post
+        }, redirect: 60 * 30 //30 minutos
+    }
 }
